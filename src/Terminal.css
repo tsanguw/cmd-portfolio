@@ -1,0 +1,516 @@
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+/* ─── Theme variables — default ──────────────────────────── */
+:root {
+  --bg:         #0C0C0C;
+  --text:       #CCCCCC;
+  --bright:     #FFFFFF;
+  --accent:     #FFFF55;
+  --dim:        #888888;
+  --error:      #FF5555;
+  --link:       #5555FF;
+  --link-hover: #8888FF;
+  --divider:    #444444;
+  --scrollbar:  #333333;
+  --cursor-bg:  #CCCCCC;
+  --font:       'Consolas', 'Courier New', monospace;
+  --font-size:  24px;
+}
+
+/* ─── Theme: hacker (green-on-black) ─────────────────────── */
+.theme-hacker {
+  --text:       #00CC44;
+  --bright:     #00FF55;
+  --accent:     #00FF55;
+  --dim:        #007722;
+  --link:       #00AAFF;
+  --link-hover: #55CCFF;
+  --divider:    #003311;
+  --scrollbar:  #002211;
+  --cursor-bg:  #00FF55;
+  --font:       'Share Tech Mono', 'Courier New', monospace;
+  --font-size:  26px;
+}
+
+/* ─── Theme: retro (amber-on-black) ──────────────────────── */
+.theme-retro {
+  --text:       #FFB000;
+  --bright:     #FFD000;
+  --accent:     #FFD000;
+  --dim:        #886000;
+  --link:       #FF8800;
+  --link-hover: #FFAA44;
+  --divider:    #442200;
+  --scrollbar:  #331A00;
+  --cursor-bg:  #FFD000;
+  --font:       'VT323', 'Courier New', monospace;
+  --font-size:  32px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* ─── Terminal shell ─────────────────────────────────────── */
+.terminal {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh; /* overrides above on browsers that support dvh — fixes mobile toolbar clipping */
+  width: 100vw;
+  background: var(--bg);
+  padding: 12px 16px 8px;
+  font-family: var(--font);
+  font-size: var(--font-size); /* ← change --font-size in :root to adjust desktop font size */
+}
+
+/* ─── CRT scanline overlay ───────────────────────────────── */
+.terminal::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 1px,
+    rgba(0, 0, 0, 0.2) 2px,
+    rgba(0, 0, 0, 0.2) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── ASCII art banner ───────────────────────────────────── */
+.terminal-banner {
+  color: var(--accent);
+  font-family: var(--font);
+  font-size: 0.6em;
+  line-height: 1.2;
+  white-space: pre;
+  user-select: none;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .terminal-banner { display: none; }
+}
+
+/* ─── Title bar (fake CMD chrome) ───────────────────────── */
+.terminal-titlebar {
+  color: var(--text);
+  font-size: 28px;
+  margin-bottom: 10px;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.titlebar-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─── Output area ────────────────────────────────────────── */
+.terminal-output {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-entry {
+  margin-bottom: 4px;
+}
+
+.history-prompt {
+  color: var(--dim);
+  margin-bottom: 4px;
+}
+
+.output-block {
+  animation: fadeIn 0.1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Typography helpers ─────────────────────────────────── */
+.cmd-white  { color: var(--bright); }
+.cmd-yellow { color: var(--accent); }
+.cmd-gray   { color: var(--text); }
+.cmd-dim    { color: var(--dim); }
+.cmd-error  { color: var(--error); }
+
+/* ─── Section header ─────────────────────────────────────── */
+.section-header {
+  color: var(--accent);
+  font-weight: bold;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.section-divider {
+  color: var(--divider);
+  margin-bottom: 12px;
+}
+
+/* ─── Content lines ─────────────────────────────────────── */
+.content-line {
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* ─── Skills ─────────────────────────────────────────────── */
+.skills-category {
+  margin-bottom: 10px;
+}
+
+.skills-label {
+  color: var(--bright);
+}
+
+.skills-items {
+  color: var(--text);
+  padding-left: 4px;
+}
+
+/* ─── Experience ─────────────────────────────────────────── */
+.job-block {
+  margin-bottom: 16px;
+}
+
+.job-title {
+  color: var(--bright);
+  font-weight: bold;
+}
+
+.job-meta {
+  color: var(--dim);
+  margin-bottom: 4px;
+}
+
+.job-bullet {
+  color: var(--text);
+  padding-left: 4px;
+}
+
+.job-bullet::before {
+  content: '  * ';
+  color: var(--accent);
+}
+
+/* ─── Projects ───────────────────────────────────────────── */
+.project-block {
+  margin-bottom: 16px;
+}
+
+.project-name {
+  color: var(--bright);
+  font-weight: bold;
+}
+
+.project-desc {
+  color: var(--text);
+  padding-left: 4px;
+  margin: 2px 0;
+}
+
+.project-stack {
+  color: var(--dim);
+  padding-left: 4px;
+}
+
+.project-link {
+  color: var(--link);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+
+.project-link:hover {
+  color: var(--link-hover);
+}
+
+/* ─── Links ──────────────────────────────────────────────── */
+.link-row {
+  margin-bottom: 6px;
+  display: flex;
+  gap: 8px;
+}
+
+.link-label {
+  color: var(--bright);
+  min-width: 90px;
+}
+
+.link-url {
+  color: var(--link);
+  text-decoration: underline;
+  word-break: break-all;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+
+.link-url:hover {
+  color: var(--link-hover);
+}
+
+/* ─── Help ───────────────────────────────────────────────── */
+.help-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.help-cmd {
+  color: var(--accent);
+  min-width: 28ch; /* wide enough for "default | hacker | retro" */
+  flex-shrink: 0;
+}
+
+.help-desc {
+  color: var(--text);
+}
+
+/* ─── Input line ─────────────────────────────────────────── */
+.terminal-input-row {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+.prompt-label {
+  color: var(--bright);
+  white-space: nowrap;
+  margin-right: 4px;
+  user-select: none;
+}
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--bright);
+  font-family: var(--font);
+  font-size: var(--font-size);
+  caret-color: transparent; /* we draw our own cursor */
+  padding: 0;
+}
+
+/* Blinking block cursor overlay */
+.cursor-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.cursor-block {
+  position: absolute;
+  width: 8px;
+  height: 15px;
+  background: var(--cursor-bg);
+  pointer-events: none;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Gallery grid ───────────────────────────────────────── */
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 96px;
+  margin-top: 4px;
+}
+
+.gallery-item {
+  background: none;
+  border: 1px solid var(--divider);
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: border-color 0.15s;
+}
+
+.gallery-item:hover {
+  border-color: var(--accent);
+}
+
+.gallery-thumb {
+  width: auto;
+  height: 250px;
+  max-width: 300px;
+  object-fit: contain;
+  display: block;
+}
+
+.gallery-item-title {
+  color: var(--dim);
+  text-align: center;
+  word-break: break-all;
+  font-weight: bold;
+  font-size: var(--font-size);
+  max-width: 220px;
+}
+
+/* ─── Lightbox ───────────────────────────────────────────── */
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: pointer;
+}
+
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: default;
+  max-width: 95vw;
+  max-height: 95vh;
+}
+
+.lightbox-img {
+  width: 70vw;
+  height: 85vh;
+  object-fit: contain;
+  border: 1px solid var(--accent);
+  display: block;
+}
+
+.lightbox-title {
+  color: var(--bright);
+  font-size: 1em;
+  text-align: center;
+}
+
+.lightbox-caption {
+  color: var(--dim);
+  font-size: 0.85em;
+  text-align: center;
+  max-width: 60vw;
+}
+
+/* ─── Collapsible command tray ───────────────────────────── */
+.tray {
+  flex-shrink: 0;
+  border-top: 1px solid var(--divider);
+  margin-top: 6px;
+}
+
+.tray-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--dim);
+  font-family: inherit;
+  font-size: 0.75em;
+  padding: 4px 0;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  text-align: center;
+}
+
+.tray-toggle:hover {
+  color: var(--text);
+}
+
+.tray-toggle-arrow {
+  font-size: 0.7em;
+}
+
+.tray-toggle-label {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.tray-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 0 6px;
+}
+
+.tray-btn {
+  background: none;
+  border: 1px solid var(--divider);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.8em;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+
+.tray-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ─── Mobile font sizes ──────────────────────────────────── */
+@media (max-width: 600px) {
+  body                  { font-size: 13px; } /* ← mobile body font size */
+  .terminal-titlebar    { font-size: 13px; } /* ← mobile title bar font size */
+  .terminal-input       { font-size: 13px; } /* ← mobile input font size */
+  .terminal             { padding: 8px 10px 6px; }
+}
+
+/* ─── Scrollbar — subtle styling for the output area ────── */
+.terminal-output::-webkit-scrollbar {
+  width: 6px;
+}
+.terminal-output::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+.terminal-output::-webkit-scrollbar-thumb {
+  background: var(--scrollbar);
+  border-radius: 3px;
+}
+.terminal-output::-webkit-scrollbar-thumb:hover {
+  background: var(--dim);
+}
