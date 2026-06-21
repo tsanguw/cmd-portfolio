@@ -136,6 +136,12 @@ export const content = {
     ],
   },
 
+  resume: {
+    title: "RESUME",
+    url: "https://docs.google.com/document/d/1nqzH3tvBCB6pUm9mO8KFI19BtWGUN3Qc/edit?usp=sharing&ouid=116416219633790831631&rtpof=true&sd=true",
+    linkLabel: "View Resume",
+  },
+
   links: {
     title: "LINKS",
     items: [
@@ -157,6 +163,7 @@ export const COMMANDS = [
   { cmd: "skills",                     shortcut: "s", desc: "List technical skills by category" },
   { cmd: "experience",                 shortcut: "e", desc: "Show work experience and job history" },
   { cmd: "projects",                   shortcut: "p", desc: "Browse projects with descriptions and links" },
+  { cmd: "resume",                     shortcut: "r", desc: "View my resume" },
   { cmd: "links",                      shortcut: "l", desc: "Display social and profile links" },
   { cmd: "gallery",                    shortcut: "g", desc: "Browse photos in a grid view" },
   { cmd: "clear",                      shortcut: "c", desc: "Clear the terminal output" },

@@ -6,6 +6,7 @@ import {
   ExperienceOutput,
   ProjectsOutput,
   LinksOutput,
+  ResumeOutput,
   GalleryOutput,
   HelpOutput,
   ThemeOutput,
@@ -30,6 +31,7 @@ const TRAY_BUTTONS = [
   { label: 'skills',     cmd: 'skills' },
   { label: 'experience', cmd: 'experience' },
   { label: 'projects',   cmd: 'projects' },
+  { label: 'resume',     cmd: 'resume' },
   { label: 'links',      cmd: 'links' },
   { label: 'gallery',    cmd: 'gallery' },
   { label: 'clear',      cmd: 'clear' },
@@ -48,6 +50,8 @@ function getOutput(command) {
     case 'e':          return { output: <ExperienceOutput /> };
     case 'projects':
     case 'p':          return { output: <ProjectsOutput /> };
+    case 'resume':
+    case 'r':          return { output: <ResumeOutput /> };
     case 'links':
     case 'l':          return { output: <LinksOutput /> };
     case 'gallery':

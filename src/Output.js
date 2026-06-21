@@ -85,6 +85,23 @@ export function ProjectsOutput() {
   );
 }
 
+export function ResumeOutput() {
+  const { title, url, linkLabel } = content.resume;
+  return (
+    <div className="output-block">
+      <SectionHeader title={title} />
+      <div>
+        <button
+          className="project-link"
+          onClick={() => window.open(url, '_blank', 'noopener,noreferrer')}
+        >
+          {linkLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export function LinksOutput() {
   const { title, items } = content.links;
   return (
