@@ -87,10 +87,16 @@ export function ProjectsOutput() {
 
 export function ResumeOutput() {
   const { title, url, linkLabel } = content.resume;
+  const [open, setOpen] = useState(false);
+  const previewUrl = url.replace('/edit', '/preview');
+
   return (
     <div className="output-block">
       <SectionHeader title={title} />
-      <div>
+      <div style={{ display: 'flex', gap: '16px' }}>
+        <button className="project-link" onClick={() => setOpen(true)}>
+          Preview
+        </button>
         <button
           className="project-link"
           onClick={() => window.open(url, '_blank', 'noopener,noreferrer')}
@@ -98,6 +104,23 @@ export function ResumeOutput() {
           {linkLabel}
         </button>
       </div>
+
+      {open && (
+        <div className="lightbox-backdrop" onClick={() => setOpen(false)}>
+          <div className="resume-lightbox" onClick={(e) => e.stopPropagation()}>
+            <div className="resume-lightbox-toolbar">
+              <span className="cmd-dim">Daniel Tsang — Resume</span>
+              <button className="resume-close-btn" onClick={() => setOpen(false)}>✕ close</button>
+            </div>
+            <iframe
+              src={previewUrl}
+              title="Resume"
+              className="resume-iframe"
+              allow="autoplay"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

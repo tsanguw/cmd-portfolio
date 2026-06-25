@@ -431,6 +431,46 @@ body {
   max-width: 60vw;
 }
 
+/* ─── Resume lightbox ───────────────────────────────────── */
+.resume-lightbox {
+  display: flex;
+  flex-direction: column;
+  width: 860px;
+  max-width: 95vw;
+  height: 90vh;
+  cursor: default;
+}
+
+.resume-lightbox-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-bottom: none;
+}
+
+.resume-close-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.8em;
+  cursor: pointer;
+  padding: 0;
+}
+
+.resume-close-btn:hover {
+  color: var(--bright);
+}
+
+.resume-iframe {
+  width: 100%;
+  flex: 1;
+  border: 1px solid var(--accent);
+}
+
 /* ─── Collapsible command tray ───────────────────────────── */
 .tray {
   flex-shrink: 0;
